@@ -7,14 +7,40 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0e0e0e; --surface: #161616; --border: #2a2a2a;
-    --accent: #e8ff47; --accent2: #ff6b35; --text: #f0f0f0; --muted: #888;
-    --mono: 'Space Mono', monospace; --sans: 'Syne', sans-serif;
+    --bg: #0e0e0e; 
+    --surface: #161616; 
+    --border: #2a2a2a;
+    --accent: #e8ff47; 
+    --accent2: #ff6b35; 
+    --text: #f0f0f0; 
+    --muted: #888;
+    --mono: 'Space Mono', monospace; 
+    --sans: 'Syne', sans-serif;
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: var(--bg); color: var(--text); font-family: var(--sans); display: flex; min-height: 100vh; }
   
-  .sidebar { width: 280px; min-width: 280px; background: var(--surface); border-right: 1px solid var(--border); height: 100vh; position: sticky; top: 0; overflow-y: auto; display: flex; flex-direction: column; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body { 
+    background: var(--bg); 
+    color: var(--text); 
+    font-family: var(--sans); 
+    display: flex; 
+    min-height: 100vh; 
+  }
+  
+  .sidebar { 
+    width: 280px; 
+    min-width: 280px; 
+    background: var(--surface); 
+    border-right: 1px solid var(--border); 
+    height: 100vh; 
+    position: sticky; 
+    top: 0; 
+    overflow-y: auto; 
+    display: flex; 
+    flex-direction: column; 
+  }
+  
   .sidebar-logo { padding: 28px 24px 20px; border-bottom: 1px solid var(--border); }
   .sidebar-logo h1 { font-size: 28px; font-weight: 800; letter-spacing: -1px; color: var(--accent); }
   .sidebar-logo p { font-size: 11px; color: var(--muted); font-family: var(--mono); margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
@@ -31,8 +57,17 @@
   .back-home:hover { color: var(--accent); }
 
   .main { flex: 1; overflow-y: auto; padding: 0; }
-  .module { display: none; max-width: 760px; margin: 0 auto; padding: 60px 48px 80px; }
-  .module.active { display: block; }
+  
+  /* CRITICAL FIX: Hide all modules by default, only show the active one */
+  .module { 
+    display: none; 
+    max-width: 760px; 
+    margin: 0 auto; 
+    padding: 60px 48px 80px; 
+  }
+  .module.active { 
+    display: block; 
+  }
   
   .module-header { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
   .module-tag { font-family: var(--mono); font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
@@ -179,49 +214,4 @@
       <tr><th>Water</th><th>Electricity</th></tr>
       <tr><td>Water in the pipe</td><td>Electrons in the wire</td></tr>
       <tr><td>Water pressure</td><td>Voltage (measured in Volts, V)</td></tr>
-      <tr><td>Flow rate</td><td>Current (measured in Amperes, A)</td></tr>
-      <tr><td>A narrow pipe</td><td>Resistance (measured in Ohms, Ω)</td></tr>
-      <tr><td>A pump</td><td>A battery</td></tr>
-    </table>
-    <p>High pressure pushes more water through. High voltage pushes more current through. A narrow pipe slows water down. High resistance slows current down. Same logic, different medium.</p>
-
-    <h2><span class="section-num">2.2</span>Ohm's Law (Without the Fear)</h2>
-    <p>There's one formula in basic electronics that connects all three concepts. It's called Ohm's Law:</p>
-    <div class="callout">Voltage = Current × Resistance &nbsp;|&nbsp; V = I × R</div>
-    <p>You don't need to memorise this right now. What matters is the relationship: if you increase resistance, current drops. If you increase voltage, current rises. The battery is the pump. The wire is the pipe. The component at the end is what the water powers.</p>
-
-    <h2><span class="section-num">2.3</span>What Is a Circuit?</h2>
-    <p>A circuit is just a closed loop that electricity can flow around. Break the loop anywhere — the flow stops. That's how a switch works. A switch is just a way to break and restore the loop on demand.</p>
-    <ul class="content-list">
-      <li>A power source (battery, USB, solar panel)</li>
-      <li>A conductor (wire, or any metal that lets electricity flow)</li>
-      <li>A load (the component doing something — a motor, an LED, a buzzer)</li>
-      <li>A return path (the negative wire going back to the battery)</li>
-    </ul>
-
-    <div class="warning">
-      <strong>Safety note:</strong> Never connect a battery directly to a wire with nothing in between. With no resistance, current spikes — the wire heats up fast, the battery drains instantly, and you can get burned. Always have a component in the loop.
-    </div>
-
-    <div class="try-this">
-      <h3>Try This — Your First Circuit</h3>
-      <p>Connect one wire from the positive end of the battery to one leg of the bulb. Connect another wire from the other leg of the bulb back to the negative end of the battery. If it lights up — congratulations. You just built a circuit.</p>
-      <p>Now touch the two wire ends together briefly before connecting the bulb. Notice how quickly the battery warms up with nothing resisting the current. That's why every circuit needs a load.</p>
-    </div>
-  </div>
-
-  <script>
-    function showModule(num) {
-      if (num > 2) {
-        alert("This module is currently in development! We're working hard to get it ready based on user feedback. Email undarobotics@gmail.com if there's something specific you want to see here.");
-        return;
-      }
-      document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
-      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-      document.getElementById('module-' + num).classList.add('active');
-      event.currentTarget.classList.add('active');
-    }
-  </script>
-</main>
-</body>
-</html>
+      <tr><td>Flow rate
