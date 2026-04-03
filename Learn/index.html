@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unda — Modules</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0e0e; --surface: #161616; --border: #2a2a2a;
+    --accent: #e8ff47; --accent2: #ff6b35; --text: #f0f0f0; --muted: #888;
+    --mono: 'Space Mono', monospace; --sans: 'Syne', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); display: flex; min-height: 100vh; }
+  
+  .sidebar { width: 280px; min-width: 280px; background: var(--surface); border-right: 1px solid var(--border); height: 100vh; position: sticky; top: 0; overflow-y: auto; display: flex; flex-direction: column; }
+  .sidebar-logo { padding: 28px 24px 20px; border-bottom: 1px solid var(--border); }
+  .sidebar-logo h1 { font-size: 28px; font-weight: 800; letter-spacing: -1px; color: var(--accent); }
+  .sidebar-logo p { font-size: 11px; color: var(--muted); font-family: var(--mono); margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+  
+  .module-nav { padding: 16px 0; flex: 1; }
+  .nav-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 24px; cursor: pointer; border-left: 3px solid transparent; transition: all 0.15s; }
+  .nav-item:hover { background: rgba(232,255,71,0.05); border-left-color: var(--border); }
+  .nav-item.active { background: rgba(232,255,71,0.08); border-left-color: var(--accent); }
+  .nav-num { font-family: var(--mono); font-size: 11px; color: var(--accent); min-width: 24px; margin-top: 2px; }
+  .nav-title { font-size: 13px; font-weight: 600; line-height: 1.4; color: var(--text); }
+  .nav-item.active .nav-title { color: var(--accent); }
+  
+  .back-home { padding: 16px 24px; font-family: var(--mono); font-size: 12px; color: var(--muted); text-decoration: none; border-top: 1px solid var(--border); display: block; }
+  .back-home:hover { color: var(--accent); }
+
+  .main { flex: 1; overflow-y: auto; padding: 0; }
+  .module { display: none; max-width: 760px; margin: 0 auto; padding: 60px 48px 80px; }
+  .module.active { display: block; }
+  
+  .module-header { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+  .module-tag { font-family: var(--mono); font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+  .module-title { font-size: 42px; font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 16px; }
+  .module-intro { font-size: 17px; color: var(--muted); line-height: 1.7; font-weight: 400; }
+  
+  .objectives { background: rgba(232,255,71,0.05); border: 1px solid rgba(232,255,71,0.15); border-radius: 8px; padding: 24px 28px; margin-bottom: 40px; }
+  .objectives h3 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 16px; }
+  .objectives ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .objectives ul li { font-size: 14px; color: var(--text); padding-left: 20px; position: relative; line-height: 1.5; }
+  .objectives ul li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-family: var(--mono); }
+  
+  h2 { font-size: 22px; font-weight: 800; margin: 40px 0 16px; letter-spacing: -0.5px; }
+  h2 .section-num { font-family: var(--mono); font-size: 12px; color: var(--accent); margin-right: 10px; font-weight: 400; }
+  p { font-size: 16px; line-height: 1.8; color: #d0d0d0; margin-bottom: 16px; }
+  
+  .callout { border-left: 3px solid var(--accent); padding: 16px 20px; margin: 24px 0; background: rgba(232,255,71,0.04); font-size: 17px; font-weight: 600; font-style: italic; color: var(--text); }
+  .try-this { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--accent2); border-radius: 8px; padding: 28px; margin: 36px 0; }
+  .try-this h3 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--accent2); margin-bottom: 16px; }
+  
+  table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 14px; }
+  th { background: rgba(232,255,71,0.08); color: var(--accent); font-family: var(--mono); font-size: 11px; text-transform: uppercase; padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: #d0d0d0; line-height: 1.5; }
+  
+  ul.content-list { padding-left: 0; list-style: none; margin: 16px 0 24px; display: flex; flex-direction: column; gap: 10px; }
+  ul.content-list li { font-size: 15px; color: #d0d0d0; line-height: 1.6; padding-left: 20px; position: relative; }
+  ul.content-list li::before { content: '—'; position: absolute; left: 0; color: var(--muted); font-family: var(--mono); }
+  
+  .warning { background: rgba(255,107,53,0.08); border: 1px solid rgba(255,107,53,0.2); border-radius: 6px; padding: 16px 20px; margin: 20px 0; font-size: 14px; color: #d0d0d0; }
+  .warning strong { color: var(--accent2); }
+
+  @media (max-width: 768px) {
+    body { flex-direction: column; }
+    .sidebar { width: 100%; min-width: unset; height: auto; position: relative; }
+    .module { padding: 32px 20px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <h1>Unda</h1>
+    <p>No-Nonsense Robotics</p>
+  </div>
+  <div class="module-nav">
+    <div class="nav-item active" onclick="showModule(1)">
+      <span class="nav-num">01</span>
+      <span class="nav-title">What Even Is a Robot?</span>
+    </div>
+    <div class="nav-item" onclick="showModule(2)">
+      <span class="nav-num">02</span>
+      <span class="nav-title">Electricity Is Just Water</span>
+    </div>
+    <div class="nav-item" style="opacity: 0.5; cursor: pointer;" onclick="showModule(3)">
+      <span class="nav-num">03</span>
+      <span class="nav-title">Meet Your Components</span>
+    </div>
+    <div class="nav-item" style="opacity: 0.5; cursor: pointer;" onclick="showModule(4)">
+      <span class="nav-num">04</span>
+      <span class="nav-title">Making Things Move</span>
+    </div>
+    <div class="nav-item" style="opacity: 0.5; cursor: pointer;" onclick="showModule(5)">
+      <span class="nav-num">05</span>
+      <span class="nav-title">Talking to Your Robot</span>
+    </div>
+    <div class="nav-item" style="opacity: 0.5; cursor: pointer;" onclick="showModule(6)">
+      <span class="nav-num">06</span>
+      <span class="nav-title">Sensors: Feeling the World</span>
+    </div>
+    <div class="nav-item" style="opacity: 0.5; cursor: pointer;" onclick="showModule(7)">
+      <span class="nav-num">07</span>
+      <span class="nav-title">Build a Simple Rover</span>
+    </div>
+    <div class="nav-item" style="opacity: 0.5; cursor: pointer;" onclick="showModule(8)">
+      <span class="nav-num">08</span>
+      <span class="nav-title">Where to Go From Here?</span>
+    </div>
+  </div>
+  <a href="../index.html" class="back-home">← Back to Main Website</a>
+</nav>
+
+<main class="main">
+
+  <div class="module active" id="module-1">
+    <div class="module-header">
+      <div class="module-tag">Module 01</div>
+      <h1 class="module-title">What Even Is a Robot?</h1>
+      <p class="module-intro">Before you touch a single wire, you need to understand what you're actually building. And it's probably not what you think.</p>
+    </div>
+
+    <div class="objectives">
+      <h3>By the end of this module</h3>
+      <ul>
+        <li>Define what a robot actually is in simple terms</li>
+        <li>Identify the three things every robot does</li>
+        <li>Recognize robots in everyday objects around you</li>
+      </ul>
+    </div>
+
+    <h2><span class="section-num">1.1</span>Forget What Movies Told You</h2>
+    <p>When most people hear the word robot, they picture something from a movie — metal legs, glowing eyes, maybe trying to take over the world. That picture is not useful to you here.</p>
+    <p>A robot doesn't have to look like a human. It doesn't have to be expensive. It doesn't have to be complicated. Here is the only definition you need:</p>
+    <div class="callout">A robot is anything that senses its environment, makes a decision based on what it sensed, and then acts.</div>
+
+    <h2><span class="section-num">1.2</span>The Three Things Every Robot Does</h2>
+    <p><strong>Sense —</strong> A robot needs to know something about the world around it. It does this through sensors. A sensor converts something physical into an electrical signal.</p>
+    <p><strong>Decide —</strong> Once the robot has information, something processes it. This is usually a small chip called a microcontroller. It runs code that says "if I sensed this, then do that."</p>
+    <p><strong>Act —</strong> After deciding, the robot does something. The components that carry out actions are called actuators — motors, speakers, LEDs.</p>
+
+    <h2><span class="section-num">1.3</span>You Already Own a Robot</h2>
+    <p>Think about a phone you've used. Your phone is a robot. Not an exciting one, but technically — yes.</p>
+    <ul class="content-list">
+      <li>It senses — the accelerometer detects when you tilt it.</li>
+      <li>It decides — the processor runs code that says "screen tilted sideways, switch to landscape mode"</li>
+      <li>It acts — the screen rotates.</li>
+    </ul>
+
+    <div class="try-this">
+      <h3>Try This — No Components Needed</h3>
+      <p>Find three things around you that fit the Sense → Decide → Act pattern. A mousetrap counts. A door on a spring counts. If you can do this, you already think like an engineer.</p>
+    </div>
+  </div>
+
+  <div class="module" id="module-2">
+    <div class="module-header">
+      <div class="module-tag">Module 02</div>
+      <h1 class="module-title">Electricity Is Just Water</h1>
+      <p class="module-intro">You can't build anything without understanding electricity. The good news is you already understand it — you just don't know it yet.</p>
+    </div>
+
+    <div class="objectives">
+      <h3>By the end of this module</h3>
+      <ul>
+        <li>Understand voltage, current, and resistance using a simple analogy</li>
+        <li>Read a basic circuit diagram</li>
+        <li>Build your first circuit using salvaged components</li>
+      </ul>
+    </div>
+
+    <h2><span class="section-num">2.1</span>The Water Pipe Analogy</h2>
+    <p>Electricity is invisible, which makes it feel complicated. But it behaves almost exactly like water flowing through pipes. Once you see this, it never goes away.</p>
+    <table>
+      <tr><th>Water</th><th>Electricity</th></tr>
+      <tr><td>Water in the pipe</td><td>Electrons in the wire</td></tr>
+      <tr><td>Water pressure</td><td>Voltage (measured in Volts, V)</td></tr>
+      <tr><td>Flow rate</td><td>Current (measured in Amperes, A)</td></tr>
+      <tr><td>A narrow pipe</td><td>Resistance (measured in Ohms, Ω)</td></tr>
+      <tr><td>A pump</td><td>A battery</td></tr>
+    </table>
+    <p>High pressure pushes more water through. High voltage pushes more current through. A narrow pipe slows water down. High resistance slows current down. Same logic, different medium.</p>
+
+    <h2><span class="section-num">2.2</span>Ohm's Law (Without the Fear)</h2>
+    <p>There's one formula in basic electronics that connects all three concepts. It's called Ohm's Law:</p>
+    <div class="callout">Voltage = Current × Resistance &nbsp;|&nbsp; V = I × R</div>
+    <p>You don't need to memorise this right now. What matters is the relationship: if you increase resistance, current drops. If you increase voltage, current rises. The battery is the pump. The wire is the pipe. The component at the end is what the water powers.</p>
+
+    <h2><span class="section-num">2.3</span>What Is a Circuit?</h2>
+    <p>A circuit is just a closed loop that electricity can flow around. Break the loop anywhere — the flow stops. That's how a switch works. A switch is just a way to break and restore the loop on demand.</p>
+    <ul class="content-list">
+      <li>A power source (battery, USB, solar panel)</li>
+      <li>A conductor (wire, or any metal that lets electricity flow)</li>
+      <li>A load (the component doing something — a motor, an LED, a buzzer)</li>
+      <li>A return path (the negative wire going back to the battery)</li>
+    </ul>
+
+    <div class="warning">
+      <strong>Safety note:</strong> Never connect a battery directly to a wire with nothing in between. With no resistance, current spikes — the wire heats up fast, the battery drains instantly, and you can get burned. Always have a component in the loop.
+    </div>
+
+    <div class="try-this">
+      <h3>Try This — Your First Circuit</h3>
+      <p>Connect one wire from the positive end of the battery to one leg of the bulb. Connect another wire from the other leg of the bulb back to the negative end of the battery. If it lights up — congratulations. You just built a circuit.</p>
+      <p>Now touch the two wire ends together briefly before connecting the bulb. Notice how quickly the battery warms up with nothing resisting the current. That's why every circuit needs a load.</p>
+    </div>
+  </div>
+
+  <script>
+    function showModule(num) {
+      if (num > 2) {
+        alert("This module is currently in development! We're working hard to get it ready based on user feedback. Email undarobotics@gmail.com if there's something specific you want to see here.");
+        return;
+      }
+      document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.getElementById('module-' + num).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+  </script>
+</main>
+</body>
+</html>
