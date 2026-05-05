@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unda — No-Nonsense Robotics</title>
+<title>Unda — Educational Robotics</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 
@@ -387,11 +387,11 @@
   <div class="module-nav">
     <div class="nav-item" id="nav-1" onclick="showModule(1)">
       <span class="nav-num">01</span>
-      <span class="nav-title">What Even Is a Robot?</span>
+      <span class="nav-title">What Is a Robot?</span>
     </div>
     <div class="nav-item" id="nav-2" onclick="showModule(2)">
       <span class="nav-num">02</span>
-      <span class="nav-title">Electricity, What You Actually Need to Know</span>
+      <span class="nav-title">Electricity</span>
     </div>
     <div class="nav-item" id="nav-3" onclick="showModule(3)">
       <span class="nav-num">03</span>
@@ -427,7 +427,7 @@
   <div class="module-header">
     <div class="module-tag">Module 01 — Foundation</div>
     <h1 class="module-title">What Even Is a Robot?</h1>
-    <p class="module-intro">Before you touch a single wire, you need to actually understand what you're building. This one's all in your head — and that's the point.</p>
+    <p class="module-intro">Before you touch a single wire, let's first take time to actually understand what you're building. </p>
     <div class="read-time">~25 min read · No components needed</div>
   </div>
 
@@ -450,11 +450,11 @@
       </div>
       <div class="glossary-item">
         <span class="glossary-term">Microcontroller</span>
-        <span class="glossary-def">A tiny chip — smaller than your thumbnail — that acts as a robot's brain. It runs code you write and uses it to decide what the robot should do based on what its sensors are detecting.</span>
+        <span class="glossary-def">A tiny chip that acts as a robot's brain. It runs code you write and uses it to decide what the robot should do based on what its sensors are detecting.</span>
       </div>
       <div class="glossary-item">
         <span class="glossary-term">Processor</span>
-        <span class="glossary-def">The part of a computer or phone that does all the thinking — it executes instructions at very high speed. Your device's processor handles everything from opening apps to running the camera.</span>
+        <span class="glossary-def">The part of a computer or phone that does all the thinking, executing instructions at very high speed. Your device's processor handles everything from opening apps to running the camera.</span>
       </div>
       <div class="glossary-item">
         <span class="glossary-term">GPU</span>
@@ -462,11 +462,11 @@
       </div>
       <div class="glossary-item">
         <span class="glossary-term">Accelerometer</span>
-        <span class="glossary-def">A sensor that measures movement and tilt. Built into almost every phone made in the last fifteen years — it's how your device knows which way it's facing and switches between portrait and landscape.</span>
+        <span class="glossary-def">A sensor that measures movement and tilt. It's how your device knows which way it's facing and switches between portrait and landscape.</span>
       </div>
       <div class="glossary-item">
         <span class="glossary-term">Infrared sensor</span>
-        <span class="glossary-def">A sensor that sends out invisible infrared light — the same type used in TV remotes — and detects when something breaks or reflects it back. Used in automatic taps, hand sanitisers, and obstacle detection.</span>
+        <span class="glossary-def">A sensor that sends out invisible infrared light  (the same type used in TV remotes) and detects when something breaks or reflects it back. Used in automatic taps, hand sanitisers, and obstacle detection.</span>
       </div>
       <div class="glossary-item">
         <span class="glossary-term">Algorithm</span>
@@ -482,7 +482,7 @@
       </div>
       <div class="glossary-item">
         <span class="glossary-term">LIDAR</span>
-        <span class="glossary-def">Light Detection and Ranging. A sensor that fires rapid pulses of laser light in all directions and measures how long they take to bounce back — building a precise 3D map of the surroundings. Used in self-driving cars and advanced robots.</span>
+        <span class="glossary-def">Light Detection and Ranging. A sensor that fires rapid pulses of laser light in all directions and measures how long they take to bounce back, building a precise 3D map of the surroundings. Used in self-driving cars and advanced robots.</span>
       </div>
       <div class="glossary-item">
         <span class="glossary-term">Stereo cameras</span>
@@ -490,7 +490,7 @@
       </div>
       <div class="glossary-item">
         <span class="glossary-term">IMU (Inertial Measurement Unit)</span>
-        <span class="glossary-def">A sensor that tracks orientation, rotation speed, and acceleration all at once. It tells a robot — or a drone, or a phone — exactly how it is tilted and how fast it's moving in any direction.</span>
+        <span class="glossary-def">A sensor that tracks orientation, rotation speed, and acceleration all at once. It tells a robot exactly how it is tilted and how fast it's moving in any direction.</span>
       </div>
       <div class="glossary-item">
         <span class="glossary-term">SDA Loop</span>
@@ -502,22 +502,22 @@
   <div class="objectives">
     <h3>By the end of this module</h3>
     <ul>
-      <li>Define what a robot actually is — in plain language, not textbook language</li>
+      <li>Define robot</li>
       <li>Understand the three things every single robot on Earth does</li>
       <li>Spot robots hiding in everyday objects you already use</li>
-      <li>Understand why the robots in movies are not magic — just expensive engineering</li>
+      <li>Understand the robots in movies </li>
       <li>Start thinking like an engineer, which means asking "how does this work?" about everything</li>
     </ul>
   </div>
 
   <!-- 1.1 -->
-  <h2><span class="section-num">1.1</span> Okay. But First — What Did You Come Here For?</h2>
+  <h2><span class="section-num">1.1</span> Okay. But First. What Did You Come Here For?</h2>
 
   <p>Be honest. You didn't show up here because you wanted to learn about resistors or circuit diagrams. You're here because somewhere in the back of your mind you've got an image. Maybe it's Iron Man's suit snapping together piece by piece around him before he flies off. Maybe it's Optimus Prime mid-transformation on a highway. Maybe it's the scene in <em>I, Robot</em> where thousands of machines move in perfect coordination, and something in you thought — yeah. I want to understand how that works. I want to build something like that.</p>
 
   <p>Good. That's the right reason to be here.</p>
 
-  <p>But here's the thing nobody says at the start: those robots are not magic. Iron Man's suit is not science fiction in the sense of being impossible — the principles behind it are completely real. The gap between what Tony Stark builds in those films and what you'll build by Module 8 is not a gap in fundamental ideas. It's a gap in budget, materials, and years of engineering iteration. The underlying ideas are the same. You're about to learn those ideas.</p>
+  <p>The gap between what Tony Stark builds in those films and what you'll build by Module 8 is not a gap in fundamental ideas. It's a gap in budget, materials, and years of engineering iteration. The underlying ideas are the same, and you're about to learn them.</p>
 
   <p>So yes — Iron Man, the Terminator, the droids from Star Wars — we'll come back to all of them throughout this module. But first, let's settle what a robot actually is. Because the answer will probably surprise you.</p>
 
@@ -538,13 +538,13 @@
     <li>A traffic light that detects cars waiting and adjusts its own timing</li>
   </ul>
 
-  <p>None of those look like the Terminator. But every single one is a robot — because they all do the same three things. And those three things are the entire foundation of robotics as a field.</p>
+  <p>None of those look like the Terminator. But every single one is a robot because they all do the same three things. And those three things are the entire foundation of robotics as a field.</p>
 
   <div class="callout">
-    A robot is anything that senses its environment, processes that information to make a decision, and then acts on that decision. That's the whole definition. Everything else is just details.
+    A robot is anything that senses its environment, processes that information to make a decision, and then acts on that decision. That's the whole definition. Everything else is just detail
   </div>
 
-  <p>The reason robotics feels complicated is not because the core idea is hard — it's because each of those three steps can become very, very deep. But the idea itself? Three steps. You just read it.</p>
+  <p>The reason robotics feels complicated is not because the core idea is hard — it's because each of those three steps can become very, very deep. But the idea itself always comes down to those three steps.</p>
 
   <hr class="section-divider">
 
@@ -556,7 +556,7 @@
   <div class="big-number">01</div>
   <h2 style="margin-top:14px; font-size:22px;"><span class="section-num"></span>Sense</h2>
 
-  <p>A robot needs information about the world around it. Without that, it can't do anything useful — it's operating blind. The components that gather this information are called <strong>sensors</strong>, and a sensor does one specific job: it converts something physical into an electrical signal the robot can read.</p>
+  <p>A robot needs information about the world around it. The components that gather this information are called <strong>sensors</strong>, and a sensor does one specific job: it converts something physical into an electrical signal the robot can read.</p>
 
   <p>Temperature, distance, pressure, light, sound, motion — sensors exist for all of these. Your eyes are sensors. Your skin is a sensor. The microphone on any device is a sensor. Even the sharp pain you feel when you step on something in the dark — your nervous system just ran a sensing operation and screamed the result at your brain.</p>
 
